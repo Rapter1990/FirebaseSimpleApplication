@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
-    @BindView(R.id.giris_baslik)
+    @BindView(R.id.baslik)
     TextView baslik;
 
     @BindView(R.id.email)

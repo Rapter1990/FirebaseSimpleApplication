@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/giris_baslik"
+        android:id="@+id/baslik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kullancı Kayit"
@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_below="@id/giris_baslik"
+        android:layout_below="@id/baslik"
         android:layout_marginTop="15dp"
         android:paddingLeft="10dp"
         android:hint="Email"
