@@ -6,9 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/giris_baslik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kullancı Kayit"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/email"
-        android:layout_marginTop="5dp"
+        android:layout_below="@id/giris_baslik"
+        android:layout_marginTop="15dp"
         android:paddingLeft="10dp"
         android:hint="Email"
         android:layout_width="match_parent"
@@ -24,41 +35,26 @@
         android:layout_below="@id/email"/>
     
     <Button
-        android:id="@+id/kaydet"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/giris_kaydet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:text="Kaydet"
+        android:text="Kayıt"
         android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginBottom="30dp"/>
 
-    <TextView
-        android:id="@+id/id"
+    <Button
+        android:id="@+id/giris_giris"
+        android:layout_toRightOf="@id/giris_kaydet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/kaydet"
-        android:text="Id : "
-        android:textSize="20sp"
-        android:layout_marginBottom="30dp"/>
-
-
-    <TextView
-        android:id="@+id/isim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/id"
-        android:text="Email : "
-        android:textSize="20sp"
-        android:layout_marginBottom="30dp"/>
-
-    <TextView
-        android:id="@+id/soyisim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/isim"
-        android:text="Şifre : "
-        android:textSize="20sp"
+        android:layout_below="@id/password"
+        android:text="Giris"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginBottom="30dp"/>
 
 

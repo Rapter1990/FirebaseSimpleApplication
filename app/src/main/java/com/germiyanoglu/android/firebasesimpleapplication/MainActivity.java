@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,240 +41,58 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
-    /*@BindView(R.id.email)
+    @BindView(R.id.giris_baslik)
+    TextView baslik;
+
+    @BindView(R.id.email)
     EditText email;
 
     @BindView(R.id.password)
-    EditText sifre;*/
+    EditText sifre;
 
-    /*@BindView(R.id.id)
-    TextView key;
+    @BindView(R.id.giris_kaydet)
+    Button kayit;
 
-    @BindView(R.id.isim)
-    TextView isim;
+    @BindView(R.id.giris_giris)
+    Button giris;
 
-    @BindView(R.id.soyisim)
-    TextView soyisim;*/
-
-    @BindView(R.id.resim)
-    ImageView imageView;
-
-    @BindView(R.id.kaydet)
-    Button kaydet;
-
-    @BindView(R.id.yukle)
-    Button yukle;
-
-    Uri uri;
-
-    @BindView(R.id.resim1)
-    ImageView imageView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        setContentView(R.layout.upload_image);
         ButterKnife.bind(this);
 
-        kaydet.setOnClickListener(new View.OnClickListener() {
+
+        giris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signInWithEmailAndPassword(email.getText().toString(),sifre.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                Intent intent = new Intent();
-                intent.setType("image/*"); // hangi türde veriler
-                intent.setAction(Intent.ACTION_PICK); // Intent.ACTION_PICK GALARİYİ AÇMA
-                startActivityForResult(Intent.createChooser(intent,"Select Photo"),1);
+                                if(task.isSuccessful()){
 
+                                    startActivity(new Intent(getApplicationContext(),AnaSayfa.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK));
 
-
-            }
-
-
-        });
-
-
-        yukle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(uri != null){
-
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    final StorageReference storageRef = storage.getReference().child("image");
-                    final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-
-                    UploadTask uploadTask = storageRef.putFile(uri);
-                    progressDialog.show();
-                    uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                            if(task.isSuccessful()){
-
-                                String url = task.getResult().getUploadSessionUri().toString();
-                                System.out.println(url);
-                                Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_SHORT).show();
-                                progressDialog.hide();
-
-                                Picasso.with(getApplicationContext())
-                                        .load(url)
-                                        .into(imageView1);
-
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {  // Yükleme Durumu
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            progressDialog.setMessage("%" + (int)progress + " downloading.");
-                        }
-                    });
-
-                }
-
-            }
-        });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK && requestCode == 1){
-
-            // Seçtiğimiz resmin bilgileri
-            uri = data.getData();
-
-            try {
-                imageView.setImageURI(uri);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    /*private void DatabaseandAuthentication() {
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference().child("users");
-
-        final String username = email.getText().toString();
-        final String password = sifre.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(username, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-
-                            mAuth.signInWithEmailAndPassword(username,password)
-                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                    if (task.isSuccessful()) {
-
-                                        String id = mAuth.getCurrentUser().getUid();
-
-                                        Map<String,String> userMap = new HashMap<>();
-
-                                        userMap.put("email",email.getText().toString());
-                                        userMap.put("password",sifre.getText().toString());
-
-                                        myRef.child(id).setValue(userMap);
-
-                                        myRef.child(id).addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                                Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
-                                                key.setText(dataSnapshot.getKey());
-                                                isim.setText(map.get("email").toString());
-                                                soyisim.setText(map.get("password").toString());
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-
-                                    }else {
-
-                                    }
 
                                 }
-                            });
 
-                        } else {
-
-                        }
-
-                    }
-                });
-    }
-
-    private void AuthenticationSample() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        String username = email.getText().toString();
-        String password = sifre.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(username, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Başarılı", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Başarısız", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-    }
-
-
-    private void VeriKaydetme() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("users").push();
-
-        Kullanıcılar kullanıcı = new Kullanıcılar();
-        kullanıcı.setAd(email.getText().toString().trim());
-        kullanıcı.setSoyad(sifre.getText().toString().trim());
-
-        myRef.setValue(kullanıcı);
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
-                key.setText(dataSnapshot.getKey());
-                isim.setText(map.get("ad").toString());
-                soyisim.setText(map.get("soyad").toString());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+                            }
+                        });
             }
         });
-    }*/
+
+
+        kayit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),KullaniciKayit.class));
+            }
+        });
+
+
+    }
 }
