@@ -1,6 +1,7 @@
 package com.germiyanoglu.android.firebasesimpleapplication;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -21,15 +22,19 @@ import butterknife.ButterKnife;
 
 public class AnaSayfa extends AppCompatActivity {
 
+    @Nullable
     @BindView(R.id.anasayfa_profil_image)
     ImageView profil_resim;
 
+    @Nullable
     @BindView(R.id.anasayfa_email)
     TextView anasayfa_email;
 
+    @Nullable
     @BindView(R.id.anasayfa_ad_soyad)
     TextView anasayfa_ad_soyad;
 
+    @Nullable
     @BindView(R.id.anasayfa_sifre)
     TextView anasayfa_sifre;
 

@@ -3,6 +3,7 @@ package com.germiyanoglu.android.firebasesimpleapplication;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,24 +31,31 @@ import butterknife.ButterKnife;
 
 public class KullaniciKayit extends AppCompatActivity {
 
+    @Nullable
     @BindView(R.id.kayit_baslik)
     TextView baslik;
 
+    @Nullable
     @BindView(R.id.kayit_resim)
     ImageView resim;
 
+    @Nullable
     @BindView(R.id.kayit_email)
     EditText email;
 
+    @Nullable
     @BindView(R.id.kayit_ad_soyad)
     EditText adSoyad;
 
+    @Nullable
     @BindView(R.id.kayit_sifre)
     EditText sifre;
 
+    @Nullable
     @BindView(R.id.kayit)
     Button kayit;
 
+    @Nullable
     @BindView(R.id.giris)
     Button giris;
 

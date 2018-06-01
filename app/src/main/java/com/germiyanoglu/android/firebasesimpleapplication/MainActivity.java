@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,18 +42,23 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
+    @Nullable
     @BindView(R.id.baslik)
     TextView baslik;
 
+    @Nullable
     @BindView(R.id.email)
     EditText email;
 
+    @Nullable
     @BindView(R.id.password)
     EditText sifre;
 
+    @Nullable
     @BindView(R.id.giris_kaydet)
     Button kayit;
 
+    @Nullable
     @BindView(R.id.giris_giris)
     Button giris;
 
