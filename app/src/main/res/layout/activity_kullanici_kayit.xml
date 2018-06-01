@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KullaniciKayit">
+
+    <TextView
+        android:id="@+id/kayit_baslik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kullancı Kayıt"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"/>
+
+
+    <ImageView
+        android:id="@+id/kayit_resim"
+        android:layout_below="@id/kayit_baslik"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+
+    <EditText
+        android:id="@+id/kayit_email"
+        android:layout_below="@id/kayit_resim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:hint="Email"/>
+
+    <EditText
+        android:id="@+id/kayit_ad_soyad"
+        android:layout_below="@id/kayit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:hint="Ad Soyad"/>
+
+    <EditText
+        android:id="@+id/kayit_sifre"
+        android:layout_below="@id/kayit_ad_soyad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:hint="Şifre"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/kayit_sifre"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/kayit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Register"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/giris"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Login"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
