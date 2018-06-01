@@ -22,19 +22,19 @@ import butterknife.ButterKnife;
 
 public class AnaSayfa extends AppCompatActivity {
 
-    @Nullable
+
     @BindView(R.id.anasayfa_profil_image)
     ImageView profil_resim;
 
-    @Nullable
+
     @BindView(R.id.anasayfa_email)
     TextView anasayfa_email;
 
-    @Nullable
+
     @BindView(R.id.anasayfa_ad_soyad)
     TextView anasayfa_ad_soyad;
 
-    @Nullable
+
     @BindView(R.id.anasayfa_sifre)
     TextView anasayfa_sifre;
 
@@ -46,7 +46,7 @@ public class AnaSayfa extends AppCompatActivity {
         ButterKnife.bind(this);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
+        auth.signOut();
         if(auth.getCurrentUser() == null){
 
             // Geri tuşuna basıldığında bir önceki activitye gitmemek için .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

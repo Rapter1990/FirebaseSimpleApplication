@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,34 +29,35 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 public class KullaniciKayit extends AppCompatActivity {
 
-    @Nullable
+
     @BindView(R.id.kayit_baslik)
     TextView baslik;
 
-    @Nullable
+
     @BindView(R.id.kayit_resim)
     ImageView resim;
 
-    @Nullable
+
     @BindView(R.id.kayit_email)
     EditText email;
 
-    @Nullable
+
     @BindView(R.id.kayit_ad_soyad)
     EditText adSoyad;
 
-    @Nullable
+
     @BindView(R.id.kayit_sifre)
     EditText sifre;
 
-    @Nullable
+
     @BindView(R.id.kayit)
     Button kayit;
 
-    @Nullable
+
     @BindView(R.id.giris)
     Button giris;
 
@@ -128,6 +130,7 @@ public class KullaniciKayit extends AppCompatActivity {
 
                                                     myRef.child("kullanicilar").child(mAuth.getCurrentUser().getUid()).setValue(map);
 
+                                                    Toast.makeText(getApplicationContext(),"Register Completed",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
